@@ -930,9 +930,9 @@ footer::after{content:'';position:absolute;inset:0;background:radial-gradient(ci
     </div>
     <div class="rsvp-ok" id="rsvp-ok" aria-live="polite">
       <span class="rsvp-ok-ico">💌</span>
-      <p class="rsvp-ok-msg">JazakAllahu Khairan!<br>Your response has been received.<br>We look forward to celebrating with you.</p>
-      <a id="rsvp-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="map-btn" style="margin-top:1.2rem;display:inline-flex;font-size:.72rem">
-        💬 &nbsp;Confirm via WhatsApp
+      <p class="rsvp-ok-msg">JazakAllahu Khairan!<br>Your response has been recorded and WhatsApp is opening.<br>If it didn't open automatically, tap below:</p>
+      <a id="rsvp-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="map-btn" style="margin-top:1.2rem;display:inline-flex;font-size:.74rem">
+        💬 &nbsp;Open in WhatsApp (+91 73069 83472)
       </a>
     </div>
   </section>
@@ -1383,7 +1383,7 @@ function handleRSVP(e){
     setTimeout(function(){ btn.textContent = '✦  Send with Barakah  ✦'; btn.style.background = ''; }, 2200);
     return;
   }
-  btn.textContent = '✦  Sending…'; btn.disabled = true;
+  btn.textContent = '✦  Opening WhatsApp…'; btn.disabled = true;
 
   // Persist response in browser localStorage
   try {
@@ -1401,23 +1401,31 @@ function handleRSVP(e){
     console.error('LocalStorage save error:', err);
   }
 
+  // Formatted message directly addressed to host WhatsApp (+91 73069 83472)
+  var waText = 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ%0A%0A'
+    + '💍 *RSVP for Muhammed Hijas %26 Ameena\'s Nikkah*%0A%0A'
+    + '👤 *Name:* ' + encodeURIComponent(name) + '%0A'
+    + '✨ *Attendance:* ' + (att === 'yes' ? '✓ Joyfully Accepts' : 'Regretfully Declines') + '%0A'
+    + (guests ? '👥 *Guests:* ' + encodeURIComponent(guests) + '%0A' : '')
+    + (phone ? '📱 *Mobile:* ' + encodeURIComponent(phone) + '%0A' : '')
+    + (msg ? '💌 *Du\'a / Message:* ' + encodeURIComponent(msg) + '%0A' : '')
+    + '%0A_Sent via Nikkah Invitation Website_';
+
+  var waUrl = 'https://api.whatsapp.com/send?phone=917306983472&text=' + waText;
+
   setTimeout(function(){
     document.getElementById('rsvp-form-wrap').style.display = 'none';
     var ok = document.getElementById('rsvp-ok');
     ok.style.display = 'block';
 
-    // Prepare WhatsApp share link
     var waBtn = document.getElementById('rsvp-wa-btn');
     if(waBtn){
-      var waText = 'Salam! RSVP for Hijas & Ameena Nikkah:%0A'
-        + '*Name:* ' + encodeURIComponent(name) + '%0A'
-        + '*Attendance:* ' + (att === 'yes' ? '✓ Joyfully Accepts' : 'Regretfully Declines') + '%0A'
-        + (guests ? '*Guests:* ' + encodeURIComponent(guests) + '%0A' : '')
-        + (phone ? '*Mobile:* ' + encodeURIComponent(phone) + '%0A' : '')
-        + (msg ? '*Du\'a / Note:* ' + encodeURIComponent(msg) : '');
-      waBtn.href = 'https://api.whatsapp.com/send?text=' + waText;
+      waBtn.href = waUrl;
     }
-  }, 900);
+
+    // Auto-redirect directly to WhatsApp
+    window.location.href = waUrl;
+  }, 500);
 }
 
 /* ── BACKGROUND MUSIC (Nasheed) ── */
