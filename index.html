@@ -621,6 +621,29 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .cd-sep{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.3rem);color:rgba(110,62,140,.35);line-height:1;margin-bottom:1.4rem;animation:blink-sep 1.2s ease-in-out infinite}
 @keyframes blink-sep{0%,100%{opacity:.3}50%{opacity:.9}}
 
+@media(max-width:640px){
+  .cd-wrap{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    max-width:320px;
+    margin:0 auto;
+    gap:1rem;
+  }
+  .cd-sep{
+    display:none !important;
+  }
+  .cd-box{
+    min-width:0;
+    width:100%;
+    padding:1.3rem .8rem;
+    border-radius:18px;
+    box-shadow:0 6px 20px var(--sh);
+  }
+  .cd-num{
+    font-size:clamp(2.4rem,8.5vw,3.2rem);
+  }
+}
+
 /* ══ VENUE ══ */
 .venue-sec{
   padding:3.8rem 1.5rem 4.2rem;background:var(--bg);text-align:center;position:relative;
