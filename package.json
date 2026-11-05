@@ -1,13 +1,13 @@
 {
-  "name": "wedding-hijas",
+  "name": "wedding-ashfaque-rafna",
   "version": "1.0.0",
-  "description": "Wedding Invitation - Muhammed Hijas & Ameena",
+  "description": "Wedding Invitation - Ashfaque Ahammad & Rafna Fathima",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["wedding", "invitation"],
+  "keywords": ["wedding", "invitation", "nikkah"],
   "author": "",
   "license": "ISC"
 }
